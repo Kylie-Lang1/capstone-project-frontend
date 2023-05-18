@@ -16,9 +16,9 @@ export default function NewEvent() {
     date_event: "",
     summary: "",
     max_people: "", // this value sets the max attendees allowed
-    age_restriction: false,
-    age_min: "",
-    age_max: "",
+    age_restriction: "",
+    age_min: 0,
+    age_max: 0,
     location: "",
     address: "",
     start_time: "",
@@ -100,6 +100,14 @@ const handleTextChange = (event) => {
       [id]: value ? Number(value) : "", // Convert to number if value exists, otherwise set it as an empty string
     }));
   }
+  else if (event.target.id === "age_restriction"){
+    const {value} = event.target
+
+    const ageRestricted = value === "true"
+    setEvent((preEvent) => ({
+      ...preEvent, age_restriction: ageRestricted
+    }))
+  }
   else {
     const { id, value } = event.target;
     setEvent((prevEvent) => ({
@@ -126,22 +134,32 @@ setEvent({...events, categoryIds: filter})
 
 
 function checkAge(){
+if(events.age_restriction){
+  if(events.age_max >= events.age_min){
+    return true
+  }
+  else{
+    return false
+  }
 
-if(events.age_max >= events.age_min){
-  return true
 }
 else{
-  return false
+  return true
 }
 
 }
 
 function checkMinAge(){
-  if(events.age_min >= 18){
-    return true
+  if(events.age_restriction){
+    if(events.age_min >= 18){
+      return true
+    }
+    else{
+      return false
+    }
   }
   else{
-    return false
+    return true
   }
 }
 
@@ -227,15 +245,30 @@ function checkDate() {
           </div>
         ) : null}
 
-        <label htmlFor="age_min">Minimum Age</label>
-        <input type="number" id="age_min" onChange={handleTextChange} value={events.age_min}/>
-        <br />
-        {ageError && <p style={{color:"red"}}>{ageError}</p>}
-        {minAge && <p style={{color:"red"}}>{minAge}</p>}
-        <label htmlFor="age_max">Max Age</label>
-        <input type="number" id="age_max" onChange={handleTextChange} value={events.age_max}/>
-        <br />
-        {ageError && <p style={{color:"red"}}>{ageError}</p>}
+        <labe htmlFor="age_restriction">Age Restriction</labe>
+        <select id="age_restriction" onChange={handleTextChange} value={events.age_restriction}>
+          <option value="">Select Option</option>
+          <option value={true}>True</option>
+          <option value={false}>False</option>
+        </select>
+
+        {events.age_restriction ? (
+          <div>
+
+            <label htmlFor="age_min">Minimum Age</label>
+            <input type="number" id="age_min" onChange={handleTextChange} value={events.age_min}/>
+            <br />
+            {ageError && <p style={{color:"red"}}>{ageError}</p>}
+            {minAge && <p style={{color:"red"}}>{minAge}</p>}
+            <label htmlFor="age_max">Max Age</label>
+            <input type="number" id="age_max" onChange={handleTextChange} value={events.age_max}/>
+            <br />
+            {ageError && <p style={{color:"red"}}>{ageError}</p>}
+          </div>
+
+
+        ): null}
+        <br></br>
         <label htmlFor="location">Location</label>
         <input type="text" id="location" onChange={handleTextChange} value={events.location}/>
         <br />
