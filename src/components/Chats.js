@@ -183,7 +183,7 @@ function Chats({ loggedin, setLoggedin, user, setUser, firebaseId }) {
       </div>
       )}
       </div>
-      <div className="flex-auto p-4 overflow-y-auto min-h-screen">
+      <div className="flex-auto p-4 overflow-y-auto h-screen">
       {!Global.user ? (
         <div className="text-center">
           <div>
@@ -191,7 +191,7 @@ function Chats({ loggedin, setLoggedin, user, setUser, firebaseId }) {
           </div>
         </div>
       ) : (
-        <div className="flex gap-6 px-4 flex-auto ml-20 min-h-screen bg-cyan-100/50 rounded-md md:w-[450px] lg:w-[700px]">
+        <div className="flex gap-6 px-4 flex-auto ml-20 min-h-[80vh] bg-cyan-100/50 rounded-md md:w-[450px] lg:w-[700px]">
           <div className="flex flex-col p-4">
             <article className="mb-auto">
             {messageList.map((val, key) => {
