@@ -9,7 +9,7 @@ import { BsPencilFill } from "react-icons/bs";
 import Geocode from "react-geocode";
 import GoogleMap from "../components/Map";
 import CategoriesModal from "../components/CategoriesModal";
-import CustomComponent from "../components/commentSection";
+import CommentSection from "../components/commentSection";
 import useLocalStorage from "../hooks/useLocalStorage";
 import TitleEditModal from "../components/TitleEditModal";
 import LocationEditModal from "../components/LocationEditModal";
@@ -664,7 +664,7 @@ export default function EventDetails({users}) {
         }
       </div>
       <div>
-        <CustomComponent
+        <CommentSection
           currentUser={{
             currentUserId: `${users.id}`,
             currentUserProfile: `localhost:3000/profile/` + users.username,

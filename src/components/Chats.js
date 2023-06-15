@@ -95,7 +95,6 @@ function Chats({ loggedin, setLoggedin, user, setUser, firebaseId }) {
       alert("Please select user");
       return;
     }
-<<<<<<< Updated upstream
 
     console.log('selected user = ', selectedUser);
     // return;
@@ -109,15 +108,6 @@ function Chats({ loggedin, setLoggedin, user, setUser, firebaseId }) {
       sender_id: Global.user?.id,
       receiver_id: selectedUser.id,
       content: message,
-=======
-  
-    const messageContent = {
-      room: `user_${receiver.id}`,
-      content: {
-        author: user.id,
-        message,
-      },
->>>>>>> Stashed changes
     };
 
     console.log('message content = ', messageContent);
@@ -243,7 +233,6 @@ function Chats({ loggedin, setLoggedin, user, setUser, firebaseId }) {
       ) : (
         <div className="flex gap-6 px-4 flex-auto ml-20 min-h-screen bg-cyan-100/50 rounded-md md:w-[450px] lg:w-[700px]">
           <div className="flex flex-col p-4">
-<<<<<<< Updated upstream
             <article className="mb-auto">
             {messageList.map((messageItem, key) => {
               return (
@@ -257,20 +246,6 @@ function Chats({ loggedin, setLoggedin, user, setUser, firebaseId }) {
                   </div>
                   <div className={`text-xs ${messageItem.author === receiver.id ? '' : 'text-right'}`}>
                   {messageItem.sender_id === receiver.id ? receiver.first_name : "You"}
-=======
-          <article className="mb-auto">
-            {messageList.map((val, key) => {
-              return (
-                <div
-                  className={`my-1 flex flex-col ${val.author === user.id ? 'items-end' : 'items-start'}`}
-                  key={key}
-                >
-                  <div className={`rounded-md px-2 py-1 text-base ${val.author === user.id ? 'bg-cyan-500 text-slate-200' : 'bg-gray-300'}`}>
-                    {val.message}
-                  </div>
-                  <div className={`text-xs ${val.author === user.id ? 'text-right' : ''}`}>
-                    {val.author === user.id ? receiver.first_name : 'You'}
->>>>>>> Stashed changes
                   </div>
                 </div>
               );
