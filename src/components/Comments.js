@@ -1,7 +1,9 @@
+import axios from "axios";
 import CommentEdit from "./CommentEdit";
 import { useState } from "react";
 
-function Comments({handleDelete, handleEdit, comment, users, id}){
+const API = process.env.REACT_APP_API_URL;
+function Comments({handleEdit, comment, users, id, setComments}){
 
     const [hidden , setHidden] = useState(false)
 
@@ -9,8 +11,20 @@ function Comments({handleDelete, handleEdit, comment, users, id}){
         setHidden(!hidden)
     }
 
+const handleDelete = (deleteId) => {
+  console.log(deleteId)
+  axios.delete(`${API}/events/${id}/comments/${deleteId}`)
+  .then(() => {
+    axios.get(`${API}/events/${id}/comments`)
+    .then((res) => {
+      setComments(res.data)
+    })
+  })
+}
+
 
 const defaultProf = `https://ui-avatars.com/api/name=`+comment?.creator?.first_name+`&background=random`
+
 
 return(
     <div className="rounded-md sm:w-96 border-2 border-black mt-4">
@@ -40,6 +54,7 @@ return(
    <></>
     <div>
       {users?.id === comment?.creator?.user_id ? (
+
         < div className='comment-buttons ml-28 mt-10'>
         <button  className="delete bg-cyan-200 rounded-full w-16" 
         onClick={() => handleDelete(comment.id)}>
@@ -50,6 +65,7 @@ return(
           Edit
         </button>
         </div>
+
       ) : null}
     </div>
    </>
